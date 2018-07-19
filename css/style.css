@@ -1,0 +1,44 @@
+
+.container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   justify-items: center;
+   justify-self: center;
+   height: 100%;
+   max-width: 640px;
+   margin: 0 auto;
+
+}
+
+#cat-list {
+   display: flex;
+   justify-content: center;
+   flex-direction: row;
+   margin-top: 40px;
+}
+
+#cat-img {
+   max-width: 640px;
+}
+
+#cat-list li {
+   list-style-type: none;
+   padding: 20px 30px;
+   font-size: 18px;
+   background: #ddd;
+   border-right: 2px solid #fff;
+   text-align: center;
+}
+
+#cat {
+   display: flex;
+   justify-content: space-around;
+   margin-top: 20px;
+
+   font-size: 36px;
+}
+
+.hide {
+   display: none;
+}

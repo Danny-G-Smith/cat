@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Cat Clicker</title>
+   <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+   <ul id="cat-list"></ul>
+   <img id="cat-img" src="" alt="cute cat">
+   <div id="cat">
+      <span id="cat-name"></span>
+      <span id="cat-count"></span>
+   </div>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <div class="admin">
+      <button id="adminButton" name="Admin" type="submit" class="btn btn-primary">Admin</button>
+   </div>
+   <div id="adminForm" class="adminForm hide">
+      <form class="form-horizontal">
+         <label for="name" class="control-label">Name</label>
+         <input id="name" name="name" placeholder="Name" type="text" class="form-control">
+
+         <label for="imgSrc" class="control-label">Image Name</label>
+         <input id="imgSrc" name="imgSrc" placeholder="Image Name" type="text" class="form-control">
+
+         <label for="clickCount" class="control-label">Click Count</label>
+         <input id="clickCount" name="clickCount" placeholder="Click Count" type="text" class="form-control">
+
+         <div class="">
+            <button id="adminSave" name="submit" type="submit" class="btn btn-primary">Submit</button>
+         </div>
+      </form>
+   </div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
