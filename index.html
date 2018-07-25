@@ -18,21 +18,21 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
    <div class="admin">
-      <button id="adminButton" name="Admin" type="submit" class="btn btn-primary">Admin</button>
+      <button id="adminButton" name="adminButton" type="submit" class="btn btn-primary">Admin</button>
    </div>
    <div id="adminForm" class="adminForm hide">
-      <form class="form-horizontal">
-         <label for="name" class="control-label">Name</label>
-         <input id="name" name="name" placeholder="Name" type="text" class="form-control">
+      <form id="form" class="form-horizontal form">
+         <label for="catName" class="control-label">Name</label>
+         <input id="catName" name="catName" type="text" class="form-control">
 
          <label for="imgSrc" class="control-label">Image Name</label>
-         <input id="imgSrc" name="imgSrc" placeholder="Image Name" type="text" class="form-control">
+         <input id="imgSrc" name="imgSrc"  type="text" class="form-control">
 
          <label for="clickCount" class="control-label">Click Count</label>
-         <input id="clickCount" name="clickCount" placeholder="Click Count" type="text" class="form-control">
+         <input id="clickCount" name="clickCount" type="text" class="form-control">
 
-         <div class="">
-            <button id="adminSave" name="submit" type="submit" class="btn btn-primary">Submit</button>
+         <div class="adminSave">
+            <button id="adminSave" name="adminSave" type="submit" class="adminSave btn btn-primary">Submit</button>
          </div>
       </form>
    </div>

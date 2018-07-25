@@ -1,69 +1,52 @@
-/* ======= Model ======= */
-
+/* =============================== Model ================================== */
 let model = {
-   currentCat: null,
+   currentSheltie: null,
    showAdmin: false,
-   adminButton: null,
    adminForm: null,
    cats: [
       {
          clickCount: 0,
-         name: 'Cat1',
-         imgSrc: 'img/cat-1652822_640.jpg',
-         imgAttribution: 'https://www.flickr.com/photos/bigtallguy/434164568'
+         name: 'Sheltie1',
+         imgSrc: 'img/800px-Shetland_Sheepdog_black_agility.jpg'
       },
       {
          clickCount: 0,
-         name: 'Cat2',
-         imgSrc: 'img/cat-2197025_640.jpg',
-         imgAttribution: 'https://www.flickr.com/photos/xshamx/4154543904'
+         name: 'Sheltie2',
+         imgSrc: 'img/Dog-Shetland-Sheepdog-Puppy-Pet-Cute-Doggy-Pup-705810.jpg'
       },
       {
          clickCount: 0,
-         name: 'Cat3',
-         imgSrc: 'img/cat-2369169_640.jpg',
-         imgAttribution: 'https://www.flickr.com/photos/kpjas/22252709'
+         name: 'Sheltie3',
+         imgSrc: 'img/Shetland_Sheepdog2.jpg'
       },
       {
          clickCount: 0,
-         name: 'Cat4',
-         imgSrc: 'img/cat-2882170_640.jpg',
-         imgAttribution: 'https://www.flickr.com/photos/malfet/1413379559'
+         name: 'Sheltie4',
+         imgSrc: 'img/dog_sheltie_tree_close-1324372.jpg'
       },
       {
          clickCount: 0,
-         name: 'Cat5',
-         imgSrc: 'img/cat-3041498_640.jpg',
-         imgAttribution: 'https://www.flickr.com/photos/onesharp/9648464288'
+         name: 'Sheltie5',
+         imgSrc: 'img/dog_sheltie_tree_pond_close-846262.jpg'
       },
       {
          clickCount: 0,
-         name: 'Cat6',
-         imgSrc: 'img/cat-3279064_640.jpg',
-         imgAttribution: 'https://www.flickr.com/photos/onesharp/9648464288'
+         name: 'Sheltie6',
+         imgSrc: 'img/dog_sheltiie_close-838986.jpg'
       }
    ],
-   // editCurrentCat: function( name, imgSrc, clickCount ) {
-   //    cats[ currentCat ].name = name;
-   //    cats[ currentCat ].imgSrc = imgSrc;
-   //    cats[ currentCat ].clickCount = clickCount;
-   // },
-
-   //alert( cats[ 0 ].name; );
 };
 
 
-/* ======= Octopus ======= */
-
+/* =============================== Octopus ================================== */
 let octopus = {
-
    init: function() {
       // set our current cat to the first one in the list
-      model.currentCat = model.cats[ 0 ];
+      model.currentSheltie = model.cats[ 0 ];
 
       // set admin menu to hidden by default
       model.showAdmin = false;
-      model.adminButton = null;
+      //model.adminButton = null;
       model.adminForm = null;
 
       // tell our views to initialize
@@ -72,36 +55,67 @@ let octopus = {
       adminView.init();
    },
 
-   getCurrentCat: function() {
-      return model.currentCat;
-   },
-
-   getCats: function() {
+   getShelties: function() {
       return model.cats;
    },
 
+   getCurrentSheltie: function() {
+      return model.currentSheltie;
+   },
+
    // set the currently-selected cat to the object passed in
-   setCurrentCat: function( cat ) {
-      model.currentCat = cat;
+   setCurrentSheltie: function( cat ) {
+      model.currentSheltie = cat;
+   },
+
+   // set the currently-selected cat to the object passed in
+   setCurrentSheltieGivenName: function( dog ) {
+
+      for ( let index = 0; index < model.cats.length; index++ ) {
+         if ( model.cats[ index ].name === dog ) {
+            console.log( model.cats[ index ].name );
+
+            return ( model.currentSheltie = index );
+         }
+      }
    },
 
    // increments the counter for the currently-selected cat
    incrementCounter: function() {
-      model.currentCat.clickCount++;
+      model.currentSheltie.clickCount++;
       catView.render();
    },
-   // editCat: function( name, imgSrc, clickCount ) {
-   //    model.editCurrentCat( name, imgSrc, clickCount );
-   //    catView.render();
-   //    catListView.render();
-   // }
+
+   // increments the counter for the currently-selected cat
+   updateCounter: function( count ) {
+      model.currentSheltie.clickCount = count;
+      catView.render();
+   },
+
+   getSheltieName: function() {
+      return ( model.currentSheltie.name );
+   },
+
+   setSheltieName: function( dog ) {
+      model.currentSheltie.catName = dog;
+   },
+
+   getImgSrc: function() {
+      return ( model.currentSheltie.imgSrc );
+   },
+
+   setImgSrc: function( img ) {
+      model.currentSheltie.imgSrc = img;
+   },
+
+   getClickCount: function() {
+      return ( model.currentSheltie.clickCount );
+   }
 };
 
 
-/* ======= View ======= */
-
+/* =============================== View ================================== */
 let catView = {
-
    init: function() {
       // store pointers to our DOM elements for easy access later
       this.catElem = document.getElementById( 'cat' );
@@ -111,7 +125,14 @@ let catView = {
 
       // on click, increment the current cat's counter
       this.catImageElem.addEventListener( 'click', function() {
+         let countElem = document.getElementById( 'cat-count' );
+         let clickCount = document.querySelector( 'input#clickCount' );
+
+         // update the DOM elements with values from the current cat
+         let currentSheltie = octopus.getCurrentSheltie();
          octopus.incrementCounter();
+         countElem.value = octopus.getClickCount();
+         document.querySelector( 'input#clickCount' ).value = countElem.value;
       } );
 
       // render this view (update the DOM elements with the right values)
@@ -120,41 +141,93 @@ let catView = {
 
    render: function() {
       // update the DOM elements with values from the current cat
-      let currentCat = octopus.getCurrentCat();
-      this.countElem.textContent = currentCat.clickCount;
-      this.catNameElem.textContent = currentCat.name;
-      this.catImageElem.src = currentCat.imgSrc;
+      let currentSheltie = octopus.getCurrentSheltie();
+      this.countElem.textContent = octopus.getClickCount();
+      this.catNameElem.textContent = octopus.getSheltieName();
+      this.catImageElem.src = currentSheltie.imgSrc;
    }
 };
 
-let adminView = {
+
+/* =============================== AdminView ================================== */
+const adminView = {
+   initialized: false,
+   visible: false,
+
    init: function() {
-      let adminButton = document.getElementById( 'adminButton' );
+      this.initialized = true;
+      this.adminButton = document.getElementById( 'adminButton' );
+      this.adminSave = document.getElementById( 'adminSave' );
       this.adminForm = document.getElementById( 'adminForm' );
+      this.catName = document.querySelector( 'input#catName' );
+      this.imgSrc = document.querySelector( 'input#imgSrc' );
+      this.clickCount = document.querySelector( 'input#clickCount' );
+      this.clearButton = document.querySelector( 'button#js-admin-reset' );
 
-      // render this view (update the DOM elements with the right values)
-      this.render();
-   },
-
-   render: function() {
-      // on click, toggle stat of showing the admin menu
-      let adminButton = document.getElementById( 'adminButton' );
-      let adminForm = document.getElementById( 'adminForm' );
-      adminButton.addEventListener( 'click', function() {
-
-         if ( octopus.showAdmin === true ) {
-            octopus.showAdmin = false;
-            adminForm.classList.add( 'hide' );
+      this.adminButton.onclick = () => {
+         if ( this.isVisible() ) {
+            this.hide();
+            console.log( 'danny' );
          } else {
-            octopus.showAdmin = true;
-            adminForm.classList.remove( 'hide' );
+            //console.log(this.catName.value);
+            this.renderAdminFields();
+            this.show();
          }
-      })
+      };
+
+      // update the DOM elements with values from the current cat
+      // let currentSheltie = octopus.getCurrentSheltie();
+      // this.countElem.textContent = octopus.getClickCount();
+      // this.catNameElem.textContent = currentSheltie.name;
+      // this.catImageElem.src = currentSheltie.imgSrc;
+
+      this.adminSave.onclick = ( e ) => {
+         e.preventDefault();
+         octopus.updateCounter( this.clickCount.value );
+         octopus.setCurrentSheltieGivenName( this.catName.value );
+         octopus.setSheltieName( this.catName.value );
+         octopus.setImgSrc( this.imgSrc.value );
+         console.log( this.clickCount.value, this.catName.value, this.imgSrc.value );
+         // let data = {
+         //    catName: this.catName.value,
+         //    imgSrc: this.imgSrc.value,
+         //    clickCount: this.clickCount.value
+         // }
+      };
    },
+
+   renderAdminFields: function() {
+      this.catName.value = octopus.getSheltieName();
+      this.imgSrc.value = octopus.getImgSrc();
+      this.clickCount.value = octopus.getClickCount();
+   },
+
+   updateAdminFields: function() {
+      // this.catName.value = this.adminForm.catName;
+      // this.imgSrc.value = this.adminForm.imgSrc;
+      // this.clickCount.value = this.adminForm.clickCount;
+      //
+      // octopus.updateCounter( this.clickCount.value );
+      catView.render();
+   },
+
+   isVisible: function() {
+      return this.visible;
+   },
+
+   hide: function() {
+      this.visible = false;
+      this.adminForm.classList.add( 'hide' );
+   },
+
+   show: function() {
+      this.visible = true;
+      this.adminForm.classList.remove( 'hide' );
+   }
 }
 
+/* =============================== catListView ================================== */
 let catListView = {
-
    init: function() {
       // store the DOM element for easy access later
       this.catListElem = document.getElementById( 'cat-list' );
@@ -166,7 +239,7 @@ let catListView = {
    render: function() {
       let cat, elem, i;
       // get the cats we'll be rendering from the octopus
-      let cats = octopus.getCats();
+      let cats = octopus.getShelties();
 
       // empty the cat list
       this.catListElem.innerHTML = '';
@@ -180,12 +253,12 @@ let catListView = {
          elem = document.createElement( 'li' );
          elem.textContent = cat.name;
 
-         // on click, setCurrentCat and render the catView
+         // on click, setCurrentSheltie and render the catView
          // (this uses our closure-in-a-loop trick to connect the value
          //  of the cat letiable to the click event function)
          elem.addEventListener( 'click', ( function( catCopy ) {
             return function() {
-               octopus.setCurrentCat( catCopy );
+               octopus.setCurrentSheltie( catCopy );
                catView.render();
             };
          } )( cat ) );
@@ -195,6 +268,6 @@ let catListView = {
       }
    }
 };
-
 // make it go!
 octopus.init();
+
