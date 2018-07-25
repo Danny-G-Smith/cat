@@ -68,6 +68,18 @@ let octopus = {
       model.currentSheltie = cat;
    },
 
+   // set the currently-selected cat to the object passed in
+   setCurrentSheltieGivenName: function( dog ) {
+
+      for ( let index = 0; index < model.cats.length; index++ ) {
+         if ( model.cats[ index ].name === dog ) {
+            console.log( model.cats[ index ].name );
+
+            return ( model.currentSheltie = index );
+         }
+      }
+   },
+
    // increments the counter for the currently-selected cat
    incrementCounter: function() {
       model.currentSheltie.clickCount++;
@@ -85,7 +97,7 @@ let octopus = {
    },
 
    setSheltieName: function( dog ) {
-      model.currentSheltie.name = dog;
+      model.currentSheltie.catName = dog;
    },
 
    getImgSrc: function() {
@@ -163,18 +175,24 @@ const adminView = {
          }
       };
 
+      // update the DOM elements with values from the current cat
+      // let currentSheltie = octopus.getCurrentSheltie();
+      // this.countElem.textContent = octopus.getClickCount();
+      // this.catNameElem.textContent = currentSheltie.name;
+      // this.catImageElem.src = currentSheltie.imgSrc;
+
       this.adminSave.onclick = ( e ) => {
          e.preventDefault();
          octopus.updateCounter( this.clickCount.value );
-         // octopus.setCurrentSheltieGivenName( this.catName.value );
+         octopus.setCurrentSheltieGivenName( this.catName.value );
          octopus.setSheltieName( this.catName.value );
          octopus.setImgSrc( this.imgSrc.value );
          console.log( this.clickCount.value, this.catName.value, this.imgSrc.value );
-         let data = {
-            catName: this.catName.value,
-            imgSrc: this.imgSrc.value,
-            clickCount: this.clickCount.value
-         }
+         // let data = {
+         //    catName: this.catName.value,
+         //    imgSrc: this.imgSrc.value,
+         //    clickCount: this.clickCount.value
+         // }
       };
    },
 
@@ -185,10 +203,10 @@ const adminView = {
    },
 
    updateAdminFields: function() {
-      this.catName.value = this.adminForm.catName;
-      this.imgSrc.value = this.adminForm.imgSrc;
-      this.clickCount.value = this.adminForm.clickCount;
-
+      // this.catName.value = this.adminForm.catName;
+      // this.imgSrc.value = this.adminForm.imgSrc;
+      // this.clickCount.value = this.adminForm.clickCount;
+      //
       // octopus.updateCounter( this.clickCount.value );
       catView.render();
    },
